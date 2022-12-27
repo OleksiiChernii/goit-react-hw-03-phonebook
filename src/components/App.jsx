@@ -6,10 +6,30 @@ import { Filter } from './Filter';
 import { ContactList } from './ContactList';
 
 export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+  static #LOCAL_STORAGE = 'phonebook-local-storage-key';
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      contacts: [],
+      filter: '',
+    };
+  }
+
+  componentDidMount() {
+    const localStorageJSON = localStorage.getItem(App.#LOCAL_STORAGE);
+    if (localStorageJSON) {
+      this.setState({ contacts: JSON.parse(localStorageJSON) });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      App.#LOCAL_STORAGE,
+      JSON.stringify(this.state.contacts)
+    );
+  }
 
   handler = ({ name, number }) => {
     const { contacts } = this.state;
@@ -58,4 +78,3 @@ export class App extends Component {
     );
   }
 }
-
