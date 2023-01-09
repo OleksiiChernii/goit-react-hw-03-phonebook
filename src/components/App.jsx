@@ -8,14 +8,10 @@ import { ContactList } from './ContactList';
 export class App extends Component {
   static #LOCAL_STORAGE = 'phonebook-local-storage-key';
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      contacts: [],
-      filter: '',
-    };
-  }
+  state = {
+    contacts: [],
+    filter: '',
+  };
 
   componentDidMount() {
     const localStorageJSON = localStorage.getItem(App.#LOCAL_STORAGE);
