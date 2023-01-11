@@ -20,11 +20,13 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate() {
-    localStorage.setItem(
-      App.#LOCAL_STORAGE,
-      JSON.stringify(this.state.contacts)
-    );
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(
+        App.#LOCAL_STORAGE,
+        JSON.stringify(this.state.contacts)
+      );
+    }
   }
 
   handler = ({ name, number }) => {
